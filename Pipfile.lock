@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ccc5fbdc48ab4cc6f3afcf4ad4b6021309c9ab57391525df86d084ea1ac9ca79"
+            "sha256": "cd21a684a3edf431492e7f1f09e756d6ac28347f3b20eb7279e8f09cf5417982"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -9,8 +9,8 @@
         },
         "sources": [
             {
-                "name": "pypi",
-                "url": "https://pypi.org/simple",
+                "name": "douban",
+                "url": "https://pypi.douban.com/simple",
                 "verify_ssl": true
             }
         ]
@@ -31,7 +31,7 @@
                 "sha256:ae55bac364c405caa23a4f2d6cfecc6a0daada500274ffca4a9230e7129eac59",
                 "sha256:b778ce0c909a2653741cb4b1ac7015b5c130ab9c897611df43ae6a58523cb965"
             ],
-            "index": "pypi",
+            "index": "douban",
             "version": "==3.6.2"
         },
         "async-timeout": {
@@ -66,7 +66,7 @@
             "hashes": [
                 "sha256:c104998b750eb097eefc28ae28e92d66397598d2cf41a31aa45d5559ef1adf35"
             ],
-            "index": "pypi",
+            "index": "douban",
             "version": "==0.1.11"
         },
         "idna": {
@@ -103,7 +103,7 @@
                 "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee",
                 "sha256:b3f43d496c6daba4493e7c431722aeb7dbc6288f52a6e04e7b6023b0247817e6"
             ],
-            "index": "pypi",
+            "index": "douban",
             "version": "==2.23.0"
         },
         "urllib3": {

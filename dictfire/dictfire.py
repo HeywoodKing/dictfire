@@ -25,16 +25,17 @@ from fake_useragent import UserAgent
 # import asyncio
 import requests
 
-# __name__ = 'dict-fire'
-# __version__ = '1.0.0'
-# __description__ = """命令行下[中英，中法，中日，中韩，中德]文翻译工具（Command line translation tool for Chinese English,
-# Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
-# __keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
-# Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
-# __author__ = 'hywell'
-# __contact__ = 'opencoding@hotmail.com'
-# __url__ = 'git@github.com:HeywoodKing/dictfire.git'
-# __license__ = 'MIT'
+
+__name__ = 'dict-fire'
+__version__ = '1.0.0'
+__description__ = """命令行下[中英，中法，中日，中韩，中德]文翻译工具（Command line translation tool for Chinese English,
+Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
+__keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
+Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
+__author__ = 'hywell'
+__contact__ = 'opencoding@hotmail.com'
+__url__ = 'git@github.com:HeywoodKing/dictfire.git'
+__license__ = 'MIT'
 
 
 class DictFire:
@@ -44,7 +45,7 @@ class DictFire:
 
     def __init__(self, argv=['blank']):
         self.src = argv
-        self.ua = UserAgent()
+        self.ua = UserAgent(verify_ssl=False)
         self.url = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
         self.header = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
@@ -87,11 +88,15 @@ class DictFire:
                 content = resp.json(encoding='utf8')
                 self.parse(content)
             else:
-                print('*' * 50)
-                print('Usage: dict fire')
+                self._print_error('Usage: dict fire')
         except Exception as ex:
-            print('ERROR: Network or remote service error!')
-            print(ex)
+            self._print_error('ERROR: Network or remote service error! {}'.format(ex))
+
+    def _print_error(self, content):
+        print('*' * 68)
+        print('* {}'.format(content))
+        print('*')
+        print('*' * 68)
 
     def parse(self, content):
         code = content['errorCode']
@@ -152,9 +157,10 @@ class DictFire:
 
 
 if __name__ == '__main__':
-    # DictFire(sys.argv[1:])
-    DictFire(['如果你也是爱我的，那我们结婚吧'])
+    DictFire(sys.argv[1:])
+    # DictFire(['如果你也是爱我的，那我们结婚吧'])
     # DictFire(['你真的爱我嘛，我是认真的'])
 
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(DictFire(), )
+
