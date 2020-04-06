@@ -3,7 +3,7 @@
 """
 dictfire
 
-@File           : dictfire.py
+@File           : core.py
 @Time           : 2020/3/16 19:33
 @Author         : hywell
 @Email          : opencoding@hotmail.com
@@ -17,6 +17,7 @@ dictfire
 
 # from __future__ import unicode_literals
 import sys
+import os
 import re
 # import json
 # import aiohttp
@@ -25,17 +26,22 @@ from urllib.parse import quote
 from fake_useragent import UserAgent
 # import asyncio
 import requests
+from .setting import *
+
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(BASE_DIR)
 
 # __name__ = 'dict-fire'
-__version__ = '1.0.0'
-__description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,
-Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
-__keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
-Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
-__author__ = 'hywell'
-__contact__ = 'opencoding@hotmail.com'
-__url__ = 'git@github.com:HeywoodKing/dictfire.git'
-__license__ = 'MIT'
+# __version__ = '1.0.3'
+# __description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,
+# Chinese French, Chinese Japanese, Chinese Korean, Chinese German），目前支持中英互译，翻译服务基于有道翻译。"""
+# __keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
+# Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
+# __author__ = 'hywell'
+# __contact__ = 'opencoding@hotmail.com'
+# __url__ = 'git@github.com:HeywoodKing/dictfire.git'
+# __license__ = 'MIT'
 
 
 class DictFire:
@@ -46,7 +52,8 @@ class DictFire:
     def __init__(self, argv=None):
         self.src = argv if argv else ['hello world']
         self.ua = UserAgent(verify_ssl=False)
-        self.url = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
+        # self.url = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
+        self.url = YOUDAO_URL
         self.header = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
             "Accept-Encoding": "gzip, deflate",
@@ -217,11 +224,11 @@ class DictFire:
 
 
 if __name__ == '__main__':
-    # dict = DictFire(sys.argv[1:])
-    # dict.translate()
+    # d = DictFire(sys.argv[1:])
+    # d.translate()
 
-    dict = DictFire()
-    dict.translate(sys.argv[1:])
+    d = DictFire()
+    d.translate(sys.argv[1:])
 
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(DictFire(), )

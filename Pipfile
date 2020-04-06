@@ -4,9 +4,10 @@ url = "https://pypi.douban.com/simple"
 verify_ssl = true
 
 [dev-packages]
+pypandoc = "*"
+aiohttp = "*"
 
 [packages]
-aiohttp = "*"
 fake-useragent = "*"
 requests = "*"
 
