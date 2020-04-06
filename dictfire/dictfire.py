@@ -44,7 +44,7 @@ class DictFire:
     """
 
     def __init__(self, argv=None):
-        self.src = argv if argv else ['blank']
+        self.src = argv if argv else ['hello world']
         self.ua = UserAgent(verify_ssl=False)
         self.url = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
         self.header = {
@@ -73,7 +73,6 @@ class DictFire:
         }
         self.number_flag = 68
         # self.session = aiohttp.ClientSession(headers=self.header)
-        self.translate()
 
     def _print_error(self, content):
         """
@@ -196,7 +195,7 @@ class DictFire:
             "content": content
         }
 
-    def translate(self):
+    def _translate(self):
         try:
             resp = self._request()
             if resp['code'] == 0:
@@ -210,11 +209,19 @@ class DictFire:
         except Exception as ex:
             self._print_error('ERROR: remote service error! {}'.format(ex))
 
+    def translate(self, argv=None):
+        if argv:
+            self.src = argv
+
+        self._translate()
+
 
 if __name__ == '__main__':
-    # DictFire(sys.argv[1:])
-    DictFire(['如果你也是爱我的，那我们结婚吧'])
-    # DictFire(['你真的爱我嘛，我是认真的'])
+    # dict = DictFire(sys.argv[1:])
+    # dict.translate()
+
+    dict = DictFire()
+    dict.translate(sys.argv[1:])
 
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(DictFire(), )
