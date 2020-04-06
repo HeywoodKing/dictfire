@@ -26,7 +26,7 @@ from fake_useragent import UserAgent
 # import asyncio
 import requests
 
-__name__ = 'dict-fire'
+# __name__ = 'dict-fire'
 __version__ = '1.0.0'
 __description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,
 Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
