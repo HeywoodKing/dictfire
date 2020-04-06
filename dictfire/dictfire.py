@@ -26,9 +26,9 @@ from fake_useragent import UserAgent
 # import asyncio
 import requests
 
-# __name__ = 'dict-fire'
+__name__ = 'dict-fire'
 __version__ = '1.0.0'
-__description__ = """命令行下[中英，中法，中日，中韩，中德]文翻译工具（Command line translation tool for Chinese English,
+__description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文翻译工具（Command line translation tool for Chinese English,
 Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
 __keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
 Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
@@ -74,12 +74,12 @@ class DictFire:
         self.number_flag = 68
         # self.session = aiohttp.ClientSession(headers=self.header)
 
-    def _print_error(self, content):
+    def _print_error(self, error):
         """
         打印失败的结果
         """
         print('*' * self.number_flag)
-        print('* {}'.format(content))
+        print('* {}'.format(error))
         print('*')
         print('*' * self.number_flag)
 

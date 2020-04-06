@@ -1,6 +1,6 @@
 # dict
 
-命令行下[中英，中法，中日，中韩，中德]文翻译工具（Command line translation tool for Chinese English, 
+命令行下[中英，中俄，中日，中韩，中法，中德，中西]文翻译工具（Command line translation tool for Chinese English, 
 Chinese French, Chinese Japanese, Chinese Korean, Chinese German），翻译服务基于有道翻译。
 
 
