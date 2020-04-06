@@ -1,19 +1,22 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+# !/usr/bin/env python
+# -*- encoding: utf-8 -*-
 """
-    cobra
-    ~~~~~
+setup
 
-    Implements cobra main
-
-    :author:    hywell <opencoding@hotmail.com>
-    :homepage:  https://github.com/HeywoodKing
-    :license:   MIT, see LICENSE for more details.
-    :copyright: Copyright (c) 2020 hywell. All rights reserved
+@File           : setup.py
+@Time           : 2020/3/16 19:33
+@Author         : hywell
+@Email          : opencoding@hotmail.com
+@ide            : PyCharm
+@project        : dictfire
+@description    : Chinese/English Translation
+@homepage:  https://github.com/HeywoodKing/dictfire.git
+@license:   MIT, see LICENSE for more details.
+@copyright: Copyright (c) 2020 hywell. All rights reserved
 """
+
 import codecs
-import dictfire
+from dictfire.dictfire import DictFire
 import setuptools.command.test
 
 
@@ -27,15 +30,16 @@ def long_description():
 
 
 setuptools.setup(
-    name=dict.__name__,
-    version=dict.__version__,
-    description=dict.__description__,
+    name=DictFire.__name__,
+    version=DictFire.__version__,
+    description=DictFire.__description__,
     long_description=long_description(),
-    keywords=dict.__keywords__,
-    author=dict.__author__,
-    author_email=dict.__contact__,
-    url=dict.__url__,
-    license=dict.__license__,
+    long_description_content_type="text/markdown",
+    keywords=DictFire.__keywords__,
+    author=DictFire.__author__,
+    author_email=DictFire.__contact__,
+    url=DictFire.__url__,
+    license=DictFire.__license__,
     platforms=['any'],
     classifiers=[
         # How mature is this project? Common values are
