@@ -28,7 +28,7 @@ import requests
 
 __name__ = 'dict-fire'
 __version__ = '1.0.0'
-__description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文翻译工具（Command line translation tool for Chinese English,
+__description__ = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,
 Chinese French, Chinese Japanese, Chinese Korean, Chinese German）"""
 __keywords__ = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
 Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
