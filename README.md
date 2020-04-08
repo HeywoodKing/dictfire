@@ -7,7 +7,7 @@ Chinese French, Chinese Japanese, Chinese Korean, Chinese German），目前支�
 ## 安装(Install)
 
 ```
-sudo pip3 install dict-fire
+sudo pip3 install dictfire
 ```
 
 ## 用法(Usage)
