@@ -64,3 +64,21 @@ $ dict I love you
 ```
 ***
 
+
+打包上传
+```
+删除之前的构建文件，重新构建，打包，上传到正式pypi，推送git，并打上tag版本
+python setup.py upload
+
+
+分步：
+python setup.py sdist build bdist_wheel
+
+twine upload dist/*
+
+git add .
+git commit -m "描述"
+git push origin dev
+git tag v{0}
+git push --tags
+```
