@@ -53,3 +53,8 @@ See https://pypi.org/help/#invalid-auth for details for url: https://upload.pypi
 ```
 原因：pypi.org的用户名或密码输入错误
 方案：输入正确的用户名和密码
+
+9. 增加帮助和参数命令
+```
+
+```
