@@ -10,6 +10,7 @@ aiohttp = "*"
 [packages]
 fake-useragent = "*"
 requests = "*"
+pypandoc = "*"
 
 [requires]
 python_version = "3.7"

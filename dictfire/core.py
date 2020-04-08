@@ -14,8 +14,7 @@ dictfire
 @license:   MIT, see LICENSE for more details.
 @copyright: Copyright (c) 2020 hywell. All rights reserved
 """
-
-# from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 import sys
 import os
 import re
@@ -26,7 +25,7 @@ from urllib.parse import quote
 from fake_useragent import UserAgent
 # import asyncio
 import requests
-from .setting import *
+from dictfire.setting import *
 
 
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,7 +39,7 @@ from .setting import *
 # Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
 # __author__ = 'hywell'
 # __contact__ = 'opencoding@hotmail.com'
-# __url__ = 'git@github.com:HeywoodKing/dictfire.git'
+# __url__ = 'https://github.com/HeywoodKing/dictfire'
 # __license__ = 'MIT'
 
 
@@ -51,7 +50,9 @@ class DictFire:
 
     def __init__(self, argv=None):
         self.src = argv if argv else ['hello world']
-        self.ua = UserAgent(verify_ssl=False)
+        location = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/fake_useragent_v0.1.11.json'
+        # print(location)
+        self.ua = UserAgent(verify_ssl=False, path=location)
         # self.url = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
         self.url = YOUDAO_URL
         self.header = {
@@ -78,7 +79,7 @@ class DictFire:
             "RU2ZH_CN": "俄语　»　中文",
             "SP2ZH_CN": "西语　»　中文",
         }
-        self.number_flag = 68
+        self.number_flag = 62
         # self.session = aiohttp.ClientSession(headers=self.header)
 
     def _print_error(self, error):
@@ -116,7 +117,7 @@ class DictFire:
             end_index = start_index + self.number_flag
             print('\033[1;31m# \033[0m {0}'.format(src[start_index: end_index]))
 
-        # print('\033[1;31m# \033[0m')
+        print('\033[1;31m# \033[0m')
         lines = math.ceil(tgt_columns / (self.number_flag - 2))
         for line in range(lines):
             start_index = line * (self.number_flag - 2)
@@ -223,12 +224,18 @@ class DictFire:
         self._translate()
 
 
+def main():
+    DictFire().translate(sys.argv[1:])
+
+
 if __name__ == '__main__':
     # d = DictFire(sys.argv[1:])
     # d.translate()
 
-    d = DictFire()
-    d.translate(sys.argv[1:])
+    # d = DictFire()
+    # d.translate(sys.argv[1:])
+
+    DictFire().translate(sys.argv[1:])
 
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(DictFire(), )

@@ -40,7 +40,7 @@ KEYWORDS = """Translation English2Chinese, Chinese2English, Chinese2French, Fren
 Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
 AUTHOR = 'hywell'
 EMAIL = 'opencoding@hotmail.com'
-URL = 'git@github.com:HeywoodKing/dictfire.git'
+URL = 'https://github.com/HeywoodKing/dictfire'
 LICENSE = 'MIT'
 REQUIRES_PYTHON = '>=3.0.0'
 
@@ -157,7 +157,7 @@ setup(
     maintainer=AUTHOR,
     maintainer_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
-    zip_safe=False,
+    zip_safe=True,
     url=URL,
     download_url=URL,
     keywords=KEYWORDS,
@@ -170,7 +170,7 @@ setup(
     extras_require=EXTRAS,
     include_package_data=True,
     package_data={
-        '': ['*.py']
+        '': ['*.py', '*.json']
     },
     classifiers=[
         # How mature is this project? Common values are
@@ -205,7 +205,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'dict = dict:main',
+            'dict = dictfire:main',
         ],
     },
     # $ setup.py publish support.

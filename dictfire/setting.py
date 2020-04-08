@@ -8,11 +8,14 @@
 @project        : dictfire
 @description    : 描述
 """
-import os
-import sys
+# import os
+# import sys
 
-BASE_DIR = os.path.basename(os.path.basename(__file__))
-sys.argv.append(BASE_DIR)
+# BASE_DIR = os.path.basename(os.path.basename(__file__))
+# sys.argv.append(BASE_DIR)
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(BASE_DIR)
 
 # 有道翻译地址
 # YOUDAO_URL = 'http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule'
