@@ -58,3 +58,14 @@ See https://pypi.org/help/#invalid-auth for details for url: https://upload.pypi
 ```
 
 ```
+
+10. 第一次安装使用fake-useragent重试次数达到最大报错问题
+```
+fake_useragent.errors.FakeUserAgentError: Maximum amount of retries reached （fake_useragent代理获取失败）
+下载最新版本json文件（网页拉到最低保存为json文件（fake_useragent.json））
+https://fake-useragent.herokuapp.com/browsers/0.1.11
+
+在项目中引用即可
+location = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/fake_useragent_v0.1.11.json'
+self.ua = UserAgent(verify_ssl=False, path=location)
+```
