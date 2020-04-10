@@ -69,3 +69,8 @@ https://fake-useragent.herokuapp.com/browsers/0.1.11
 location = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/fake_useragent_v0.1.11.json'
 self.ua = UserAgent(verify_ssl=False, path=location)
 ```
+
+11. ubuntu18.04 安装失败
+```
+
+```

@@ -14,28 +14,27 @@ setup
 @license:   MIT, see LICENSE for more details.
 @copyright: Copyright (c) 2020 hywell. All rights reserved
 """
+from __future__ import with_statement
+from __future__ import print_function
 import io
 import os
 import sys
 import codecs
 # import setuptools.command.test
 from shutil import rmtree
-from pypandoc import convert_file, convert_text
+
 
 try:
     from setuptools import find_packages, setup, Command
 except ImportError:
     from distutils.core import setup, find_packages, Command
 
-# from dictfire import dictfire
-
 if sys.version_info < (3, 0):
     sys.exit('Python 3.0 or greater is required.')
 
 NAME = 'dictfire'
 VERSION = ''
-DESCRIPTION = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,
-Chinese French, Chinese Japanese, Chinese Korean, Chinese German），目前支持中英互译，翻译服务基于有道翻译。"""
+DESCRIPTION = """命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English,Chinese French, Chinese Japanese, Chinese Korean, Chinese German），翻译服务基于有道翻译。"""
 KEYWORDS = """Translation English2Chinese, Chinese2English, Chinese2French, French2Chinese, Chinese2Japanese,
 Japanese2Chinese, Chinese2Korean, Korean2Chinese, Chinese2German, German2Chinese） Command-line"""
 AUTHOR = 'hywell'
@@ -62,9 +61,24 @@ here = os.path.abspath(os.path.dirname(__file__))
 # Note: this will only work if 'README.md' is present in your MANIFEST.in file!
 # def long_description():
 #     try:
-#         with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+#         with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 #             content = '\n' + f.read()
-#     except FileNotFoundError:
+#     except FileNotFoundError as ex:
+#         print(ex)
+#         content = DESCRIPTION
+#
+#     print(content)
+#     return content
+
+
+# def long_description():
+#     try:
+#         content = codecs.open('README.md', 'r', 'utf-8').read()
+#         # print('*' * 100)
+#         # print(content)
+#         # print('*' * 100)
+#     except IOError as ex:
+#         print(ex)
 #         content = DESCRIPTION
 #
 #     return content
@@ -72,8 +86,10 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 # def long_description():
 #     try:
-#         content = codecs.open('README.md', 'r', 'utf-8').read()
-#     except IOError:
+#         with open("README.md", "r") as fh:
+#             content = fh.read()
+#     except IOError as ex:
+#         print(ex)
 #         content = DESCRIPTION
 #
 #     return content
@@ -81,22 +97,32 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 def long_description():
     try:
-        readme = os.path.join(os.path.dirname(__file__), 'README.md')
-        content = convert_file(readme, 'rst')
-    except IOError:
+        readme = os.path.join(here, 'README.md')
+        if os.path.isfile(readme):
+            try:
+                import pypandoc
+                # from pypandoc.pandoc_download import download_pandoc
+                # pypandoc.download_pandoc()
+
+                # file_path, tmp_file_name = os.path.split(readme)
+                # short_name, extension = os.path.splitext(tmp_file_name)
+
+                file_name = os.path.basename(readme).split('.')[0]
+                rst_file = '{}.rst'.format(file_name)
+                pypandoc.convert_file(readme, 'rst', 'md', outputfile=rst_file)
+                # content = pypandoc.convert_file(readme, 'rst', 'md')
+                with io.open(os.path.join(here, rst_file), encoding='utf-8') as f:
+                    content = '\n' + f.read()
+            except Exception as ex:
+                print(ex)
+                content = DESCRIPTION
+        else:
+            content = DESCRIPTION
+    except IOError as ex:
+        print(ex)
         content = DESCRIPTION
 
     return content
-
-
-# def long_description():
-#     try:
-#         with open("README.md", "r") as fh:
-#             content = fh.read()
-#     except IOError:
-#         content = DESCRIPTION
-#
-#     return content
 
 
 # Load the package's __version__.py module as a dictionary.
@@ -130,18 +156,60 @@ class UploadCommand(Command):
         try:
             self.status('Removing previous builds…')
             rmtree(os.path.join(here, 'dist'))
-        except OSError:
-            pass
+        except OSError as ex:
+            print(ex)
 
-        self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        try:
+            self.status('Building Source and Wheel (universal) distribution…')
+            # os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+            # os.system('{0} setup.py build sdist bdist_egg bdist_wheel --universal'.format(sys.executable))
+            os.system('{0} setup.py build bdist bdist_egg bdist_wheel --universal'.format(sys.executable))
 
-        self.status('Uploading the package to PyPI via Twine…')
-        os.system('twine upload dist/*')
+            self.status('Uploading the package to PyPI via Twine…')
+            os.system('twine upload dist/*')
 
-        self.status('Pushing git tags…')
-        os.system('git tag v{0}'.format(about['__version__']))
-        os.system('git push --tags')
+            self.status('Pushing git tags…')
+            os.system('git tag v{0}'.format(about['__version__']))
+            os.system('git push --tags')
+        except Exception as ex:
+            print(ex)
+
+        sys.exit()
+
+
+class UploadTestCommand(Command):
+    """Support setup.py upload."""
+
+    description = 'Build and publish the package.'
+    user_options = []
+
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print('\033[1m{0}\033[0m'.format(s))
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        try:
+            self.status('Removing previous builds…')
+            rmtree(os.path.join(here, 'dist'))
+        except OSError as ex:
+            print(ex)
+
+        try:
+            self.status('Building Source and Wheel (universal) distribution…')
+            os.system('{0} setup.py build bdist bdist_egg bdist_wheel --universal'.format(sys.executable))
+
+            self.status('Uploading the package to PyPI via Twine…')
+            os.system('twine upload --repository-url https://test.pypi.org/legacy/ dist/*')
+
+        except Exception as ex:
+            print(ex)
 
         sys.exit()
 
@@ -150,7 +218,7 @@ setup(
     name=NAME,
     version=about['__version__'],
     description=DESCRIPTION,
-    long_description='command-line tools dict',
+    long_description=long_description(),
     long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
@@ -162,7 +230,7 @@ setup(
     download_url=URL,
     keywords=KEYWORDS,
     packages=find_packages(exclude=['tests', '*.tests', '*.tests.*', 'tests.*']),
-    # If your package is a single module, use this instead of 'packages':
+    # 填写你的模块py文件，就是要打包的python文件列表
     # py_modules=['mypackage'],
     license=LICENSE,
     platforms=['any'],
@@ -207,9 +275,11 @@ setup(
         'console_scripts': [
             'dict = dictfire:main',
         ],
+        # 'distutils.commands': [' my_command=my.command.module.Class'],
     },
     # $ setup.py publish support.
     cmdclass={
         'upload': UploadCommand,
+        'uploadtest': UploadTestCommand,
     },
 )

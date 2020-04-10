@@ -1,6 +1,6 @@
 # dict
 
-命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English, 
+>命令行下[中英，中俄，中日，中韩，中法，中德，中西]文互翻译工具（Command line translation tool for Chinese English, 
 Chinese French, Chinese Japanese, Chinese Korean, Chinese German），目前支持中英互译，翻译服务基于有道翻译。
 
 
@@ -73,6 +73,7 @@ python setup.py upload
 
 分步：
 python setup.py sdist build bdist_wheel
+python setup.py build sdist bdist_wheel bdist_egg
 
 twine upload dist/*
 
@@ -82,3 +83,14 @@ git push origin dev
 git tag v{0}
 git push --tags
 ```
+
+测试上传：
+```
+构建
+python setup.py build bdist bdist_wheel bdist_egg
+python setup.py sdist bdist bdist_wheel bdist_egg
+
+上传
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
