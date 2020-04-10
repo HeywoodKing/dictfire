@@ -1,8 +1,21 @@
 ## Question
 
 1. 打包不能生成tar.gz的问题
+```
+linux 下生成的是tar.gz
+windows 下生成的是tar
+```
+
 2. 上传提示description描述格式问题
+```
+将readme.md使用pypandoc(pandoc) convert_file转换为rst文件，然后去取rst文件内容即可
+```
+
 3. pip3安装测试，提示fake-useragent的依赖问题
+```
+将在线读取fake_useragent.json包提前预打包到包里面，这样避免因为网络问题造成的安装依赖出错问题
+```
+
 4. 安装dictfire后，输入dict a测试报错如下
 ```
 D:\Flack\Project\Github\dictfire>dict -h
