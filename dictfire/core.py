@@ -25,6 +25,7 @@ from urllib.parse import quote
 from fake_useragent import UserAgent
 # import asyncio
 import requests
+import argparse
 from dictfire.setting import *
 
 
@@ -82,6 +83,40 @@ class DictFire:
         self.number_flag = 62
         # self.session = aiohttp.ClientSession(headers=self.header)
 
+        parser = argparse.ArgumentParser(description='dictfire 互翻译工具命令行参数')
+        parser.add_argument(
+            "-y", "--youdao",
+            help="基于有道翻译提供服务",
+            default=True,
+            action="store_true"
+        )
+        parser.add_argument(
+            "-b", "--baidu",
+            help="基于百度翻译提供服务",
+            # default=BAIDU_URL,
+            action="store_true"
+        )
+        parser.add_argument(
+            "-p", "--powerword",
+            help="基于金山词霸翻译提供服务",
+            # default=POWERWORLD_URL,
+            action="store_true"
+        )
+        parser.add_argument(
+            "-g", "--google",
+            help="基于谷歌翻译提供服务",
+            # default=GOOGLE_URL,
+            action="store_true"
+        )
+        parser.add_argument(
+            "-m", "--bing",
+            help="基于微软必应翻译提供服务",
+            # default=BING_URL,
+            action="store_true"
+        )
+        parser.add_argument("text", metavar="text", help="输入待翻译的文本,如果是单词可以不用加引号，如果是句子必须要加引号")
+        self.args = parser.parse_args()
+
     def _print_error(self, error):
         """
         打印失败的结果
@@ -127,7 +162,35 @@ class DictFire:
         print('\033[1;31m# \033[0m')
         print('\033[1;31m{} \033[0m'.format('#' * self.number_flag))
 
-    def _parse(self, content):
+    def _request(self, message=None):
+        """
+        请求远程api服务
+        """
+        try:
+            # if len(self.src) > 0:
+            #     for s in self.src:
+            #         message = message + s + ' '
+
+            if message is not None:
+                self.url = self.url + quote(message.encode('utf-8'))
+                # async with self.session.get(self.url) as resp:
+                #     content = await resp.json(encoding='utf8')
+                resp = requests.get(self.url)
+                content = resp.json(encoding='utf8')
+                code = 0
+            else:
+                code = 1
+                content = 'Usage: dict fire'
+        except Exception as ex:
+            code = -1
+            content = 'ERROR: Network or remote service error! {}'.format(ex)
+
+        return {
+            "code": code,
+            "content": content
+        }
+
+    def _parse_by_youdao(self, content):
         """
         解析内容
         """
@@ -175,39 +238,23 @@ class DictFire:
             "msg": msg
         }
 
-    def _request(self):
-        """
-        请求远程api服务
-        """
+    def _parse_by_baidu(self, content):
+        pass
+
+    def _parse_by_google(self, content):
+        pass
+
+    def _parse_by_bing(self, content):
+        pass
+
+    def _parse_by_powerword(self, content):
+        pass
+
+    def _translate_by_youdao(self):
         try:
-            message = ''
-            if len(self.src) > 0:
-                for s in self.src:
-                    message = message + s + ' '
-
-                self.url = self.url + quote(message.encode('utf-8'))
-                # async with self.session.get(self.url) as resp:
-                #     content = await resp.json(encoding='utf8')
-                resp = requests.get(self.url)
-                content = resp.json(encoding='utf8')
-                code = 0
-            else:
-                code = 1
-                content = 'Usage: dict fire'
-        except Exception as ex:
-            code = -1
-            content = 'ERROR: Network or remote service error! {}'.format(ex)
-
-        return {
-            "code": code,
-            "content": content
-        }
-
-    def _translate(self):
-        try:
-            resp = self._request()
+            resp = self._request(self.args.text)
             if resp['code'] == 0:
-                result = self._parse(resp['content'])
+                result = self._parse_by_youdao(resp['content'])
                 if result['code'] == 0:
                     self._print_success(result['type'], result['src'], result['tgt'])
                 else:
@@ -217,25 +264,60 @@ class DictFire:
         except Exception as ex:
             self._print_error('ERROR: remote service error! {}'.format(ex))
 
-    def translate(self, argv=None):
-        if argv:
-            self.src = argv
+    def _translate_by_baidu(self):
+        print('基于百度翻译服务')
+        pass
 
-        self._translate()
+    def _translate_by_google(self):
+        print('基于谷歌翻译服务')
+        pass
+
+    def _translate_by_bing(self):
+        print('基于必应翻译服务')
+        pass
+
+    def _translate_by_powerword(self):
+        print('基于金山词霸翻译服务')
+        pass
+
+    def translate(self, argv=None):
+        # if argv:
+        #     self.src = argv
+
+        if self.args.baidu:
+            self._translate_by_baidu()
+            return
+
+        if self.args.google:
+            self._translate_by_google()
+            return
+
+        if self.args.bing:
+            self._translate_by_bing()
+            return
+
+        if self.args.powerword:
+            self._translate_by_powerword()
+            return
+
+        if self.args.youdao:
+            self._translate_by_youdao()
+            return
 
 
 def main():
-    DictFire().translate(sys.argv[1:])
-
-
-if __name__ == '__main__':
     # d = DictFire(sys.argv[1:])
     # d.translate()
 
     # d = DictFire()
     # d.translate(sys.argv[1:])
 
-    DictFire().translate(sys.argv[1:])
+    # DictFire().translate(sys.argv[1:])
+    DictFire().translate()
+
+
+if __name__ == '__main__':
+    main()
 
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(DictFire(), )

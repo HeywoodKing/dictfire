@@ -87,3 +87,35 @@ self.ua = UserAgent(verify_ssl=False, path=location)
 ```
 
 ```
+
+12. Upload failed (403): Invalid or non-existent authentication information.
+```
+错误的用户验证信息，你需要创建一个用户验证文件 ~/.pypirc
+```
+
+13. Upload failed (403): You are not allowed to edit 'xxx' package information
+
+这个已经不需要了，直接使用upload上传代替了
+你需要先注册你的包才可以开始上传，运行注册命令：
+```
+python setup.py register
+```
+
+14. Server response (401): Incomplete registration; check your email
+你的PyPI账户还没完成邮箱验证，你需要去注册邮箱找到一封验证邮件完成验证后再重试失败的步骤。
+
+
+15. Server response (400): Invalid classifier "Topic :: Software Development :: Utilities"
+你的setup.py文件中的classifier信息有误，请按官网的正确分类书写classifier.
+
+16. error: No dist file created in earlier command
+你还没打包就开始了上传命令，建议打包和上传的操作放在一起做，比如：
+```
+python setup sdist upload
+```
+
+17. error: Upload failed (499): Client Disconnected
+这应该是网络问题，多重试几次。
+
+18. Upload failed (400): File already exists
+文件已经存在了，你每一次上次都应该更新版本号

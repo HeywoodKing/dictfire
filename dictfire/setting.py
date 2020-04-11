@@ -30,5 +30,5 @@ BAIDU_URL = ''
 # 谷歌翻译地址
 GOOGLE_URL = ''
 
-# 金山词霸翻译地址
+# 必应翻译地址
 BING_URL = ''
