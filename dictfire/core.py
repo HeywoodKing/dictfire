@@ -45,6 +45,12 @@ class DictFire:
 
         parser = argparse.ArgumentParser(description='dictfire 是一款强大实用的互翻译工具')
         parser.add_argument(
+            "-v", "--version",
+            help="查看版本号",
+            # default=True,
+            action="store_true"
+        )
+        parser.add_argument(
             "-y", "--youdao",
             help="基于有道翻译提供服务",
             default=True,
@@ -167,6 +173,15 @@ class DictFire:
                 pass
 
         try:
+            if self.args.version:
+                about = {}
+                here = os.path.abspath(os.path.dirname(__file__))
+                # project_slug = 'dictfire'.replace("-", "_").replace(" ", "_")
+                with open(os.path.join(here, '__version__.py')) as f:
+                    exec(f.read(), about)
+                print('{} {} from {}'.format('dictfire', about['__version__'], __file__))
+                return about['__version__']
+
             if self.args.baidu:
                 return self._translate('baidu')
 
@@ -192,6 +207,8 @@ def main():
     # d.translate()
 
     # DictFire().translate(sys.argv[1:])
+    # 程序调用示例
+    # DictFire(is_command=False).translate()
 
     # 命令行输入关键字 dict (输入可选项参数和必填文本)
     DictFire(is_command=True).translate()
