@@ -109,9 +109,12 @@ def long_description():
 
                 file_name = os.path.basename(readme).split('.')[0]
                 rst_file = '{}.rst'.format(file_name)
+                rst_path = os.path.join(here, rst_file)
+                if os.path.exists(rst_path):
+                    os.remove(rst_path)
                 pypandoc.convert_file(readme, 'rst', 'md', outputfile=rst_file)
                 # content = pypandoc.convert_file(readme, 'rst', 'md')
-                with io.open(os.path.join(here, rst_file), encoding='utf-8') as f:
+                with io.open(rst_path, encoding='utf-8') as f:
                     content = '\n' + f.read()
             except Exception as ex:
                 print(ex)
