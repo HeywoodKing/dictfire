@@ -3,6 +3,6 @@
 # 88    pb   88   Yb         88    88""     88   88 Yb   88""
 # 88""bb     88    Yboodp    88    88       88   88  Yb  888888
 
-VERSION = (1, 1, 16)
+VERSION = (1, 1, 17)
 
 __version__ = '.'.join(map(str, VERSION))
