@@ -73,7 +73,7 @@ class DictFire:
         )
 
         if is_command:
-            parser.add_argument("text", metavar="text", help="输入待翻译的文本,如果是单词可以不用加引号，如果是句子必须要加引号")
+            parser.add_argument("text", metavar="text", help="待翻译的文本,如果是单词可以不用加引号，如果是句子必须要加引号")
         self.args = parser.parse_args()
 
     def _print_error(self, error):
@@ -153,6 +153,8 @@ class DictFire:
         else:
             self._print_error(result['msg'])
 
+        return result
+
     def translate(self, args=None):
         if args:
             # 表示程序调用，非命令行使用
@@ -166,24 +168,19 @@ class DictFire:
 
         try:
             if self.args.baidu:
-                self._translate('baidu')
-                return
+                return self._translate('baidu')
 
             if self.args.google:
-                self._translate('google')
-                return
+                return self._translate('google')
 
             if self.args.bing:
-                self._translate('bing')
-                return
+                return self._translate('bing')
 
             if self.args.powerword:
-                self._translate('powerword')
-                return
+                return self._translate('powerword')
 
             if self.args.youdao:
-                self._translate('youdao')
-                return
+                return self._translate('youdao')
 
         except Exception as ex:
             self._print_error(ex)
@@ -197,7 +194,7 @@ def main():
     # DictFire().translate(sys.argv[1:])
 
     # 命令行输入关键字 dict (输入可选项参数和必填文本)
-    DictFire(is_command=False).translate()
+    DictFire(is_command=True).translate()
 
 
 if __name__ == '__main__':
