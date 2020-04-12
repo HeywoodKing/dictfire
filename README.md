@@ -75,7 +75,7 @@ $ dict I love you
 ```
 result = DictFire(is_command=False).translate("I love you")
 或者
-d = DictFire(is_command=True)
+d = DictFire(is_command=False)
 result = d.translate("I love you")
 
 print(result)
