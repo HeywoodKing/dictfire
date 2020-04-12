@@ -5,12 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 pypandoc = "*"
-aiohttp = "*"
+fake-useragent = "*"
+requests = "*"
 
 [packages]
 fake-useragent = "*"
 requests = "*"
-pypandoc = "*"
 
 [requires]
 python_version = "3.7"
