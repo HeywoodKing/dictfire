@@ -101,8 +101,6 @@ class BaiDu:
 
             if text is not None:
                 url = url + quote(text.encode('utf-8'))
-                # async with self.session.get(self.url) as resp:
-                #     content = await resp.json(encoding='utf8')
                 resp = requests.get(url)
                 content = resp.json(encoding='utf8')
                 code = 0

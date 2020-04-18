@@ -35,10 +35,14 @@ YOUDAO_URL = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
 POWERWORD_URL = ''
 
 # 百度翻译地址
-BAIDU_URL = ''
+BAIDU_URL = 'http://api.fanyi.baidu.com/api/trans/vip/translate'
+# BAIDU_URL = 'https://fanyi-api.baidu.com/api/trans/vip/translate'
 
 # 谷歌翻译地址
 GOOGLE_URL = ''
 
 # 必应翻译地址
 BING_URL = ''
+
+# 译云翻译
+YEEKIT = 'http://api.yeekit.com/dotranslate.php'
